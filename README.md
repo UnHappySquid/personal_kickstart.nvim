@@ -31,6 +31,8 @@ External Requirements:
   - If want to write Typescript, you need `npm`
   - If want to write Golang, you will need `go`
   - etc.
+- Yarn `npm install --global yarn`
+- Python 3.10 Venv `sudo apt install python3.10-venv`
 
 > **NOTE**
 > See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
