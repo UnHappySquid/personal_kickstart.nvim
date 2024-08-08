@@ -555,6 +555,7 @@ require("lazy").setup({
 			--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			-- Enable the following language servers
 			--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -578,6 +579,7 @@ require("lazy").setup({
 				-- But for many setups, the LSP (`tsserver`) will work just fine
 				-- tsserver = {},
 				--
+				html = {},
 
 				pylsp = {
 					settings = {
@@ -695,12 +697,12 @@ require("lazy").setup({
 					-- `friendly-snippets` contains a variety of premade snippets.
 					--    See the README about individual language/framework/plugin snippets:
 					--    https://github.com/rafamadriz/friendly-snippets
-					-- {
-					--   'rafamadriz/friendly-snippets',
-					--   config = function()
-					--     require('luasnip.loaders.from_vscode').lazy_load()
-					--   end,
-					-- },
+					{
+						"rafamadriz/friendly-snippets",
+						config = function()
+							require("luasnip.loaders.from_vscode").lazy_load()
+						end,
+					},
 				},
 			},
 			"saadparwaiz1/cmp_luasnip",
@@ -742,7 +744,19 @@ require("lazy").setup({
 					-- Accept ([y]es) the completion.
 					--  This will auto-import if your LSP supports it.
 					--  This will expand snippets if the LSP sent a snippet.
-					["<C-y>"] = cmp.mapping.confirm({ select = true }),
+					["<C-y>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							if luasnip.expandable() then
+								luasnip.expand()
+							else
+								cmp.confirm({
+									select = true,
+								})
+							end
+						else
+							fallback()
+						end
+					end),
 
 					-- If you prefer more traditional completion keymaps,
 					-- you can uncomment the following lines
