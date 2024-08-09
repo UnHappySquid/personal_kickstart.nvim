@@ -1,4 +1,8 @@
-# kickstart.nvim
+# UnHappySquid's personal kickstart.nvim
+I added plugins that help with Markdown previews and web-dev.
+- Markdown preview can be gotten using `:MarkdownPreview` while having a web browser running.
+- Web-dev has utilities such as `:BrowserOpen` which starts a webserver from the current folder, can be found in `localhost:3000` if running localy or `$(ip):3000` if running over network. A little dashboard can be found under port 3001.
+- Add any new plugins in the `./lua/custom/plugins/init.lua` file.
 
 ## Introduction
 
@@ -33,7 +37,9 @@ External Requirements:
   - If want to write Typescript, you need `npm`
   - If want to write Golang, you will need `go`
   - etc.
-- Yarn `npm install --global yarn`
+- Yarn `sudo npm install --global yarn`
+- [HURL](https://hurl.dev/docs/installation.html)
+- Browser-sync `sudo npm install --global browser-sync`
 - Python 3.10 Venv `sudo apt install python3.10-venv`
 
 > **NOTE**
